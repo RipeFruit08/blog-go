@@ -1,0 +1,8 @@
+<body>
+  <h1>Blog Home</h1>
+  {{ if .Posts }} {{ range .Posts }}
+  <h2><a href="/{{ .Slug }}">{{ .Title }}</a></h2>
+  {{ end }} {{ else }}
+  <p>No posts found.</p>
+  {{ end }}
+</body>
