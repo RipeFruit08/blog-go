@@ -6,5 +6,5 @@ CREATE TABLE request_logs (
     user_agent TEXT,
     platform TEXT,
     duration_ms INTEGER,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT (timezone('America/New_York', now()))
 );

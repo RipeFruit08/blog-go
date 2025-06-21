@@ -58,6 +58,14 @@ func main() {
 	r.Use(middleware.RealIP)
 	r.Use(loggingAndDBMiddleware(db))
 
+	// Serve static files under the "/static/*" route
+	r.Route("/static", func(r chi.Router) {
+		fs := http.StripPrefix("/static/", http.FileServer(http.Dir("static")))
+		r.Get("/*", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			fs.ServeHTTP(w, r)
+		}))
+	})
+
 	// Pass posts to handlers
 	r.Get("/", handlers.Home(posts))
 	r.Get("/rss.xml", handlers.RSS(posts))
