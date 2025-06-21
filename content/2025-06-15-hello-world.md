@@ -1,6 +1,6 @@
 ---
 title: "Hello World"
-date: 2025-06-15
+date: 2025-06-15 20:49
 slug: "hello-world"
 ---
 

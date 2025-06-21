@@ -1,12 +1,14 @@
 package handlers
 
 import (
-	"net/http"
-	"fmt"
 	"blog-go/internal/blog"
-	"github.com/go-chi/chi/v5"
+	"fmt"
 	"html/template"
+	"log"
+	"net/http"
 	"time"
+
+	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/feeds"
 )
 
@@ -37,23 +39,23 @@ func Home(posts []blog.Post) http.HandlerFunc {
 	}
 }
 
-func RSS(posts []blog.Post) http.HandlerFunc {
+func RSS(posts []blog.Post, baseUrl string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		now := time.Now()
 		feed := &feeds.Feed{
-			Title:       "My Go Blog",
-			Link:        &feeds.Link{Href: "https://your-domain.com"},
+			Title:       "Stephen Kim's Dev Blog",
+			Link:        &feeds.Link{Href: baseUrl},
 			Description: "My blog posts in RSS",
-			Author:      &feeds.Author{Name: "Your Name"},
+			Author:      &feeds.Author{Name: "Stephen Kim"},
 			Created:     now,
 		}
 
 		for _, post := range posts {
 			feed.Items = append(feed.Items, &feeds.Item{
 				Title:       post.Title,
-				Link:        &feeds.Link{Href: "https://your-domain.com/" + post.Slug},
-				Description: "", // You can pull a summary here
-				Created:     post.Date,
+				Link:        &feeds.Link{Href: baseUrl + "/" + post.Slug},
+				Description: string(post.HTML), // You can pull a summary here
+				Created:     post.Date.Time,
 			})
 		}
 
@@ -63,7 +65,10 @@ func RSS(posts []blog.Post) http.HandlerFunc {
 			return
 		}
 
-		w.Header().Set("Content-Type", "application/rss+xml")
-		w.Write([]byte(rss))
+		w.Header().Set("Content-Type", "application/rss+xml; charset=utf-8")
+		_, err = w.Write([]byte(rss))
+		if err != nil {
+			log.Println("Error writing RSS response:", err)
+		}
 	}
 }

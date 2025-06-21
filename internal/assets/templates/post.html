@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1>{{ .Title }}</h1>
-    <p><em>{{ .Date }}</em></p>
+    <p><em>{{ .Date.FormatReadable }}</em></p>
     <article>{{ .HTML }}</article>
     <p><a href="/">← Back to home</a></p>
   </body>

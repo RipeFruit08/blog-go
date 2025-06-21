@@ -27,8 +27,12 @@ func main() {
 	}
 
 	connStr := os.Getenv("DB_CONN_STRING")
+	baseUrl := os.Getenv("BASE_URL")
 	if connStr == "" {
 		log.Fatal("DB_CONN_STRING not set")
+	}
+	if baseUrl == "" {
+		log.Fatal("BASE_URL not set")
 	}
 
 	entries, err := fs.ReadDir(content.Content, ".")
@@ -68,7 +72,7 @@ func main() {
 
 	// Pass posts to handlers
 	r.Get("/", handlers.Home(posts))
-	r.Get("/rss.xml", handlers.RSS(posts))
+	r.Get("/rss.xml", handlers.RSS(posts, baseUrl))
 	r.Get("/{slug}", handlers.ShowPost(posts))
 
 	log.Println("Server listening on :3010")
