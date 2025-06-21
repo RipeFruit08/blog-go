@@ -1,6 +1,6 @@
 ---
 title: "Learning Go"
-date: 2025-06-16
+date: 2025-06-16 21:54
 slug: "learning-go"
 ---
 
