@@ -1,13 +1,6 @@
-<!-- internal/assets/templates/post.html -->
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{{ .Title }}</title>
-  </head>
-  <body>
-    <h1>{{ .Title }}</h1>
-    <p><em>{{ .Date.FormatReadable }}</em></p>
-    <article>{{ .HTML }}</article>
-    <p><a href="/">← Back to home</a></p>
-  </body>
-</html>
+{{ define "title" }}{{ .Title }} - My Go Blog{{ end }} {{ define "content" }}
+<h1>{{ .Title }}</h1>
+<p><em>{{ .Date.FormatReadable }}</em></p>
+<article>{{ .HTML }}</article>
+<p><a href="/">← Back to home</a></p>
+{{ end }}

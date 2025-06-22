@@ -17,8 +17,8 @@ func ShowPost(posts []blog.Post) http.HandlerFunc {
 		slug := chi.URLParam(r, "slug")
 		for _, p := range posts {
 			if p.Slug == slug {
-				tmpl := template.Must(template.ParseFiles("internal/assets/templates/post.html"))
-				tmpl.Execute(w, p)
+				tmpl := template.Must(template.ParseFiles("internal/assets/templates/layout.html", "internal/assets/templates/post.html"))
+				tmpl.ExecuteTemplate(w, "layout.html", p)
 				return
 			}
 		}
@@ -29,13 +29,13 @@ func ShowPost(posts []blog.Post) http.HandlerFunc {
 func Home(posts []blog.Post) http.HandlerFunc {
 	fmt.Printf("Loaded %d posts\n", len(posts))
 	return func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("internal/assets/templates/index.html"))
+		tmpl := template.Must(template.ParseFiles("internal/assets/templates/layout.html", "internal/assets/templates/index.html"))
 		data := struct {
 			Posts []blog.Post
 		}{
 			Posts: posts,
 		}
-		tmpl.Execute(w, data)
+		tmpl.ExecuteTemplate(w, "layout.html", data)
 	}
 }
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ block "title" . }}My Go Blog{{ end }}</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">My Go Blog</a></h1>
+    </header>
+
+    <main>{{ block "content" . }}{{ end }}</main>
+
+    <footer>
+      <p>&copy; 2025 My Go Blog</p>
+    </footer>
+  </body>
+</html>
