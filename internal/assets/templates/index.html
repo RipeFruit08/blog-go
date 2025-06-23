@@ -1,7 +1,12 @@
 {{ define "title" }}Home - My Go Blog{{ end }} {{ define "content" }}
 <h1>Blog Home</h1>
 {{ if .Posts }} {{ range .Posts }}
-<h2><a href="/{{ .Slug }}">{{ .Title }}</a></h2>
+<div class="post">
+  <h2 class="post-title">
+    <a href="/{{ .Slug }}">{{ .Title }}</a>
+  </h2>
+  <p class="date">{{.Date.FormatReadable}}</p>
+</div>
 {{ end }} {{ else }}
 <p>No posts found.</p>
 {{ end }} {{ end }}

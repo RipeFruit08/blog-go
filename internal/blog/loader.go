@@ -67,6 +67,12 @@ func (ct CustomTime) FormatReadable() string {
 	return ct.Format("January 2, 2006 at 3:04 PM")
 }
 
+func reverse[T any](s []T) {
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		s[i], s[j] = s[j], s[i]
+	}
+}
+
 func LoadPosts() ([]Post, error) {
 	var posts []Post
 
@@ -93,6 +99,8 @@ func LoadPosts() ([]Post, error) {
 		posts = append(posts, post)
 		return nil
 	})
+
+	reverse(posts)
 
 	return posts, err
 }
